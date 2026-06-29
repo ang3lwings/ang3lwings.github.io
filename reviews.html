@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Отзыв — Ang3lW1ngs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+    :root{
+        --bg:#0a0a0b;
+        --surface:rgba(255,255,255,0.022);
+        --surface-2:rgba(255,255,255,0.045);
+        --line:rgba(255,255,255,0.09);
+        --line-soft:rgba(255,255,255,0.05);
+        --text:#ededec;
+        --muted:rgba(237,237,236,0.52);
+        --faint:rgba(237,237,236,0.30);
+        --accent:#ffffff;
+        --discord:#5865F2;
+        --star:#ffd700;
+        --ok:#7ee787;
+        --err:#ff7b72;
+        --display:'Space Grotesk',sans-serif;
+        --body:'Inter',sans-serif;
+        --mono:'JetBrains Mono',monospace;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0;}
+
+    html,body{
+        width:100%;min-height:100%;
+        font-family:var(--body);
+        background:var(--bg);color:var(--text);
+        -webkit-font-smoothing:antialiased;
+    }
+    body{
+        display:flex;align-items:center;justify-content:center;
+        padding:40px 20px;overflow-x:hidden;
+    }
+
+    @media (prefers-reduced-motion: reduce){
+        *{animation-duration:0.001ms!important;transition-duration:0.06s!important;}
+    }
+
+    /* ── Animated background stack ── */
+    .bg-stack{position:fixed;inset:0;z-index:0;overflow:hidden;
+        background:radial-gradient(120% 90% at 50% 0%, #131316 0%, #0c0c0e 45%, #08080a 100%);}
+
+    .aurora{position:absolute;inset:-30%;z-index:1;filter:blur(60px);opacity:0.6;}
+    .aurora span{position:absolute;border-radius:50%;mix-blend-mode:screen;}
+    .aurora .a1{width:60vw;height:60vw;left:-10%;top:-10%;
+        background:radial-gradient(circle,rgba(255,255,255,0.10),transparent 60%);
+        animation:drift1 26s ease-in-out infinite;}
+    .aurora .a2{width:55vw;height:55vw;right:-12%;top:10%;
+        background:radial-gradient(circle,rgba(180,180,190,0.09),transparent 62%);
+        animation:drift2 32s ease-in-out infinite;}
+    .aurora .a3{width:50vw;height:50vw;left:20%;bottom:-20%;
+        background:radial-gradient(circle,rgba(120,120,130,0.10),transparent 60%);
+        animation:drift3 38s ease-in-out infinite;}
+    @keyframes drift1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(12vw,8vh) scale(1.18);}}
+    @keyframes drift2{0%,100%{transform:translate(0,0) scale(1.1);}50%{transform:translate(-10vw,12vh) scale(1);}}
+    @keyframes drift3{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(8vw,-10vh) scale(1.22);}}
+
+    .spotlight{position:absolute;inset:0;z-index:3;pointer-events:none;mix-blend-mode:screen;
+        background:radial-gradient(420px circle at var(--mx,50%) var(--my,42%),
+            rgba(255,255,255,0.07), rgba(255,255,255,0.02) 40%, transparent 70%);
+        transition:background .18s ease;}
+
+    .grain{position:absolute;inset:-50%;z-index:4;pointer-events:none;opacity:0.04;
+        background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        animation:grainShift 0.6s steps(4) infinite;}
+    @keyframes grainShift{0%{transform:translate(0,0);}25%{transform:translate(-3%,2%);}50%{transform:translate(2%,-3%);}75%{transform:translate(-2%,-2%);}100%{transform:translate(3%,3%);}}
+
+    .vignette{position:absolute;inset:0;z-index:5;pointer-events:none;
+        background:radial-gradient(ellipse at center,transparent 50%,rgba(0,0,0,0.55) 100%);}
+
+    /* ── Card ── */
+    .card-wrap{position:relative;z-index:10;width:100%;max-width:440px;}
+
+    .card{
+        width:100%;background:var(--surface);
+        backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px);
+        border:1px solid var(--line);border-radius:20px;padding:28px;
+        box-shadow:0 30px 80px rgba(0,0,0,0.55);
+        position:relative;overflow:hidden;
+        transition:border-color .4s ease;
+    }
+    .card::before{content:"";position:absolute;top:0;left:-130%;width:130%;height:100%;
+        background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,0.028) 50%,transparent 65%);
+        animation:sweep 10s ease-in-out infinite;pointer-events:none;}
+    @keyframes sweep{0%{left:-130%;}55%,100%{left:130%;}}
+    .card:hover{border-color:rgba(255,255,255,0.18);}
+
+    .card-inner{position:relative;z-index:1;}
+
+    /* header */
+    .back-link{display:inline-flex;align-items:center;gap:7px;color:var(--muted);
+        text-decoration:none;font-size:12.5px;margin-bottom:20px;transition:.25s;
+        font-family:var(--mono);letter-spacing:.5px;}
+    .back-link:hover{color:var(--text);transform:translateX(-3px);}
+
+    .head-block{display:flex;flex-direction:column;align-items:center;gap:10px;
+        padding-bottom:20px;border-bottom:1px solid var(--line-soft);margin-bottom:22px;}
+    .wings-icon svg{width:54px;height:32px;opacity:.85;animation:float 5s ease-in-out infinite;}
+    @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
+    .head-eyebrow{font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--faint);}
+    .head-title{font-family:var(--display);font-size:24px;font-weight:500;letter-spacing:.5px;
+        text-shadow:0 0 30px rgba(255,255,255,0.12);}
+
+    /* discord login button */
+    .discord-btn{
+        width:100%;display:inline-flex;align-items:center;justify-content:center;gap:10px;
+        background:var(--discord);color:#fff;border:none;
+        padding:15px;border-radius:13px;font-size:14px;font-weight:600;
+        cursor:pointer;transition:.3s cubic-bezier(.2,.8,.2,1);
+        font-family:var(--body);letter-spacing:.3px;
+        position:relative;overflow:hidden;
+    }
+    .discord-btn svg{width:21px;height:21px;fill:#fff;}
+    .discord-btn:hover{filter:brightness(1.12);transform:translateY(-2px);
+        box-shadow:0 10px 30px rgba(88,101,242,0.4);}
+
+    .hint{text-align:center;font-size:12.5px;color:var(--muted);margin-top:16px;line-height:1.6;}
+
+    /* user bar */
+    .user-bar{display:flex;align-items:center;gap:12px;
+        background:var(--surface-2);border:1px solid var(--line);
+        padding:12px 14px;border-radius:13px;margin-bottom:20px;}
+    .user-bar img{width:42px;height:42px;border-radius:50%;
+        border:1px solid var(--line);object-fit:cover;filter:grayscale(.3);transition:filter .4s;}
+    .user-bar:hover img{filter:grayscale(0);}
+    .user-bar .uname{font-family:var(--display);font-weight:500;font-size:15px;flex:1;}
+    .logout-btn{background:var(--surface-2);border:1px solid var(--line);color:var(--muted);
+        padding:7px 13px;border-radius:9px;font-size:12px;cursor:pointer;transition:.25s;
+        font-family:var(--body);}
+    .logout-btn:hover{border-color:rgba(255,255,255,0.22);color:var(--text);background:rgba(255,255,255,0.07);}
+
+    .existing-note{
+        background:var(--surface-2);border:1px solid var(--line);
+        padding:11px 15px;border-radius:11px;font-size:12.5px;color:var(--muted);
+        margin-bottom:20px;line-height:1.55;display:flex;align-items:center;gap:9px;}
+    .existing-note svg{width:15px;height:15px;fill:var(--text);opacity:.7;flex-shrink:0;}
+
+    .field-label{font-family:var(--mono);font-size:9.5px;letter-spacing:2px;text-transform:uppercase;
+        color:var(--faint);margin-bottom:11px;display:block;}
+
+    /* stars */
+    .stars-pick{display:flex;gap:8px;margin-bottom:22px;}
+    .stars-pick span{font-size:30px;color:rgba(255,255,255,0.16);cursor:pointer;
+        transition:.18s cubic-bezier(.2,.8,.2,1);line-height:1;}
+    .stars-pick span:hover{transform:scale(1.18);}
+    .stars-pick span.active,.stars-pick span.hover{
+        color:var(--star);text-shadow:0 0 14px rgba(255,215,0,0.5);}
+
+    textarea{
+        width:100%;min-height:110px;
+        background:var(--surface-2);border:1px solid var(--line);
+        border-radius:13px;padding:14px;color:var(--text);
+        font-family:var(--body);font-size:14px;resize:vertical;
+        margin-bottom:20px;transition:border-color .25s;line-height:1.5;
+    }
+    textarea:focus{outline:none;border-color:rgba(255,255,255,0.25);}
+    textarea::placeholder{color:var(--faint);}
+
+    /* submit button — like wide-btn primary */
+    .submit-btn{
+        width:100%;display:inline-flex;align-items:center;justify-content:center;gap:9px;
+        padding:14px;border-radius:13px;font-size:13.5px;font-weight:500;letter-spacing:.4px;
+        background:var(--surface-2);border:1px solid var(--line);color:var(--text);
+        cursor:pointer;transition:.3s cubic-bezier(.2,.8,.2,1);
+        font-family:var(--body);position:relative;overflow:hidden;
+    }
+    .submit-btn:hover{background:var(--accent);color:#0a0a0b;border-color:var(--accent);transform:translateY(-1px);}
+    .submit-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;background:var(--surface-2);color:var(--text);}
+
+    .status-msg{text-align:center;font-size:13px;margin-top:14px;min-height:18px;font-family:var(--mono);letter-spacing:.3px;}
+    .status-msg.ok{color:var(--ok);}
+    .status-msg.err{color:var(--err);}
+
+    .hidden{display:none!important;}
+
+    /* shimmer sweep on buttons */
+    .discord-btn::after,.submit-btn::after{
+        content:"";position:absolute;top:0;left:-130%;width:60%;height:100%;
+        background:linear-gradient(105deg,transparent,rgba(255,255,255,0.22),transparent);
+        transform:skewX(-12deg);transition:left .6s ease;pointer-events:none;}
+    .discord-btn:hover::after{left:130%;}
+    .submit-btn:hover::after{left:130%;background:linear-gradient(105deg,transparent,rgba(0,0,0,0.18),transparent);}
+
+    /* music badge */
+    .music-status-badge{
+        position:fixed;bottom:24px;right:24px;z-index:20;
+        display:flex;align-items:center;gap:9px;
+        background:var(--surface);border:1px solid var(--line);
+        padding:9px 16px;border-radius:100px;backdrop-filter:blur(14px);
+        font-family:var(--mono);font-size:11px;letter-spacing:1px;color:var(--muted);
+        cursor:pointer;transition:.3s;}
+    .music-status-badge:hover{border-color:rgba(255,255,255,0.22);color:var(--text);}
+    .music-waves{display:flex;align-items:flex-end;gap:2px;width:14px;height:12px;}
+    .wave-bar{width:2px;height:100%;background:var(--text);border-radius:1px;
+        animation:eqbounce .8s ease-in-out infinite alternate;}
+    .wave-bar:nth-child(2){animation-delay:.2s;}
+    .wave-bar:nth-child(3){animation-delay:.4s;}
+    @keyframes eqbounce{0%{height:20%;}100%{height:100%;}}
+    .music-status-badge.paused .wave-bar{animation-play-state:paused;height:30%;}
+
+    /* ── ENTER gate ── */
+    .audio-gate{position:fixed;inset:0;background:var(--bg);z-index:9999;
+        display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;
+        cursor:pointer;transition:opacity .8s cubic-bezier(.4,0,.2,1),visibility .8s;}
+    .audio-gate.hidden{opacity:0;visibility:hidden;pointer-events:none;}
+    .gate-mark{font-family:var(--display);font-weight:300;font-size:42px;letter-spacing:8px;
+        color:var(--text);animation:breathe 4s ease-in-out infinite;}
+    @keyframes breathe{0%,100%{opacity:.6;letter-spacing:8px;}50%{opacity:1;letter-spacing:11px;}}
+    .gate-hint{font-family:var(--mono);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--faint);}
+    .enter-btn{background:transparent;border:1px solid var(--line);color:var(--text);
+        padding:15px 46px;font-size:13px;font-weight:500;border-radius:100px;letter-spacing:4px;
+        cursor:pointer;transition:.4s cubic-bezier(.2,.8,.2,1);font-family:var(--mono);}
+    .audio-gate:hover .enter-btn{background:var(--accent);color:#0a0a0b;border-color:var(--accent);
+        box-shadow:0 0 50px rgba(255,255,255,0.18);letter-spacing:5px;}
+
+    /* reveal */
+    .reveal{opacity:0;transform:translateY(18px);}
+    body.entered .reveal{opacity:1;transform:translateY(0);
+        transition:opacity .9s ease,transform .9s cubic-bezier(.2,.8,.2,1);}
+
+    a:focus-visible,button:focus-visible{
+        outline:2px solid rgba(255,255,255,0.5);outline-offset:3px;border-radius:10px;}
+</style>
+</head>
+<body>
+
+<!-- ENTER gate -->
+<div class="audio-gate" id="audio-gate">
+    <div class="gate-mark">Ang3lW1ngs</div>
+    <button class="enter-btn">ВОЙТИ</button>
+    <div class="gate-hint">нажмите в любом месте</div>
+</div>
+
+<!-- Animated background -->
+<div class="bg-stack">
+    <div class="aurora"><span class="a1"></span><span class="a2"></span><span class="a3"></span></div>
+    <div class="spotlight" id="spotlight"></div>
+    <div class="grain"></div>
+    <div class="vignette"></div>
+</div>
+
+<div class="card-wrap reveal">
+    <div class="card">
+        <div class="card-inner">
+            <a href="index.html" class="back-link">← назад к профилю</a>
+
+            <div class="head-block">
+                <div class="wings-icon">
+                    <svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="#ededec" d="M60 62C54 56 42 52 28 54C18 55 8 52 2 46C10 44 18 40 22 34C26 28 24 20 20 14C30 18 38 26 40 36C44 30 50 24 58 20C55 26 54 34 56 40C57.5 46 59 54 60 62ZM60 62C66 56 78 52 92 54C102 55 112 52 118 46C110 44 102 40 98 34C94 28 96 20 100 14C90 18 82 26 80 36C76 30 70 24 62 20C65 26 66 34 64 40C62.5 46 61 54 60 62Z"/>
+                    </svg>
+                </div>
+                <div class="head-eyebrow">оставить отзыв</div>
+                <div class="head-title">Ваш отзыв</div>
+            </div>
+
+            <!-- Состояние: не авторизован -->
+            <div id="logged-out">
+                <button class="discord-btn" id="login-btn">
+                    <svg viewBox="0 0 127.14 96.36"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.31,60,73.31,53s5-12.74,11.43-12.74S96.33,46,96.22,53,91.08,65.69,84.69,65.69Z"/></svg>
+                    Войти через Discord
+                </button>
+                <p class="hint">Войдите, чтобы оставить отзыв.<br>Ник и аватар подтянутся из Discord автоматически.</p>
+            </div>
+
+            <!-- Состояние: авторизован -->
+            <div id="logged-in" class="hidden">
+                <div class="user-bar">
+                    <img id="user-avatar" src="" alt="avatar">
+                    <span class="uname" id="user-name"></span>
+                    <button class="logout-btn" id="logout-btn">Выйти</button>
+                </div>
+
+                <div id="existing-note" class="existing-note hidden">
+                    <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a1.003 1.003 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                    У вас уже есть отзыв — изменения перезапишут его.
+                </div>
+
+                <label class="field-label">Оценка</label>
+                <div class="stars-pick" id="stars-pick">
+                    <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span>
+                </div>
+
+                <label class="field-label">Текст отзыва</label>
+                <textarea id="review-text" placeholder="Напишите пару слов..."></textarea>
+
+                <button class="submit-btn" id="submit-btn">Опубликовать отзыв</button>
+                <div class="status-msg" id="status-msg"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Музыка (продолжается с главной страницы) -->
+<div class="music-status-badge paused" id="music-status-corner">
+    <div class="music-waves">
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+    </div>
+    <span id="status-badge-text">Музыка: Выкл</span>
+</div>
+
+<!-- ===== ENTER gate + фоновые эффекты ===== -->
+<script>
+    // курсорный «фонарь»
+    const spot=document.getElementById('spotlight');
+    window.addEventListener('mousemove',e=>{
+        spot.style.setProperty('--mx',(e.clientX/innerWidth*100)+'%');
+        spot.style.setProperty('--my',(e.clientY/innerHeight*100)+'%');
+    });
+</script>
+
+<!-- ===== Музыка: продолжение плейлиста с главной ===== -->
+<script>
+    // ── Тот же плейлист, что и на главной (index.html). Порядок треков ДОЛЖЕН совпадать! ──
+    const PLAYLIST = [
+        { title: 'Цена', artist: 'Madk1d', src: 'https://lmusic.kz/api/download/213743' },
+        { title: 'World a fuck', artist: 'Sematary', src: 'https://dn721606.ca.archive.org/0/items/sematary-ghost-mountain-worlds-a-fuck/Sematary%20%26%20Ghost%20Mountain%20-%20World%27s%20a%20Fuck.mp3' },
+        { title: 'SexySwag2010', artist: 'Madk1d', src: 'https://dn721505.ca.archive.org/0/items/madk1d-sexyswag/madk1d%20-%20sexyswag%20%282025%29/06.%20madk1d%20-%20sexyswag2010.mp3' },
+        { title: 'Засосы', artist: 'Madk1d', src: 'https://ia802808.us.archive.org/13/items/madk1d-sexyswag/madk1d%20-%20sexyswag%20%282025%29/05.%20madk1d%20-%20%D0%B7%D0%B0%D1%81%D0%BE%D1%81%D1%8B.mp3' },
+        { title: 'Супермаркет', artist: 'Madk1d', src: 'https://dn721505.ca.archive.org/0/items/madk1d-sexyswag/madk1d%20-%20sexyswag%20%282025%29/04.%20madk1d%20-%20%D1%81%D1%83%D0%BF%D0%B5%D1%80%D0%BC%D0%B0%D1%80%D0%BA%D0%B5%D1%82.mp3' },
+        { title: 'Последним летом', artist: 'madk1d | GRILLYAZH', src: 'https://archive.org/download/madk1d-sexyswag/madk1d%20-%20sexyswag%20%282025%29/08.%20madk1d%2C%20GRILLYAZH%20-%20%D0%BF%D0%BE%D1%81%D0%BB%D0%B5%D0%B4%D0%BD%D0%B8%D0%BC%20%D0%BB%D0%B5%D1%82%D0%BE%D0%BC.mp3' }
+    ];
+
+    const bgMusic = new Audio();
+    bgMusic.loop = false;
+    bgMusic.volume = 0.08;
+
+    const musicBadge = document.getElementById('music-status-corner');
+    const musicBadgeText = document.getElementById('status-badge-text');
+
+    // Читаем состояние, оставленное главной страницей
+    let curIndex = parseInt(localStorage.getItem('music_index') || '0', 10);
+    if (!(curIndex >= 0 && curIndex < PLAYLIST.length)) curIndex = 0;
+    let savedTime = parseFloat(localStorage.getItem('music_time') || '0');
+    window.__wasPlaying = localStorage.getItem('music_playing') === 'true';
+
+    function syncMusicUI(isPlaying) {
+        if (isPlaying) { musicBadge.classList.remove('paused'); musicBadgeText.innerText = "Музыка: Вкл"; }
+        else { musicBadge.classList.add('paused'); musicBadgeText.innerText = "Музыка: Выкл"; }
+    }
+
+    function loadCurrent(applySavedTime) {
+        bgMusic.src = PLAYLIST[curIndex].src;
+        if (applySavedTime && savedTime > 0) {
+            bgMusic.addEventListener('loadedmetadata', function setT(){
+                if (savedTime < bgMusic.duration) { try { bgMusic.currentTime = savedTime; } catch(e){} }
+                bgMusic.removeEventListener('loadedmetadata', setT);
+            });
+        }
+    }
+
+    // При окончании трека — переходим к следующему (как на главной)
+    bgMusic.addEventListener('ended', () => {
+        curIndex = (curIndex + 1) % PLAYLIST.length;
+        savedTime = 0;
+        loadCurrent(false);
+        bgMusic.play().then(() => syncMusicUI(true)).catch(() => {});
+    });
+
+    function startMusic() {
+        bgMusic.play().then(() => syncMusicUI(true)).catch(() => syncMusicUI(false));
+    }
+
+    // Грузим нужный трек с нужной секунды (играем уже по ENTER)
+    loadCurrent(true);
+
+    // Клик по бейджу — пауза/воспроизведение
+    musicBadge.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (bgMusic.paused) { startMusic(); } else { bgMusic.pause(); syncMusicUI(false); }
+    });
+
+    // Сохраняем состояние, чтобы при возврате на главную тоже продолжилось
+    setInterval(() => {
+        localStorage.setItem('music_index', String(curIndex));
+        localStorage.setItem('music_time', String(bgMusic.currentTime || 0));
+        localStorage.setItem('music_playing', String(!bgMusic.paused));
+    }, 1000);
+    window.addEventListener('beforeunload', () => {
+        localStorage.setItem('music_index', String(curIndex));
+        localStorage.setItem('music_time', String(bgMusic.currentTime || 0));
+        localStorage.setItem('music_playing', String(!bgMusic.paused));
+    });
+
+    // ── ENTER gate: по нажатию продолжаем музыку с того же места ──
+    const gate = document.getElementById('audio-gate');
+    function enterSite(){
+        gate.classList.add('hidden');
+        document.body.classList.add('entered');
+        if (window.__wasPlaying) {
+            startMusic();
+        } else {
+            // если на главной музыка стояла на паузе — оставляем тишину, но позволяем включить кликом
+            syncMusicUI(false);
+        }
+    }
+    gate.addEventListener('click', enterSite);
+</script>
+
+<!-- ===== Supabase + Discord ===== -->
+<script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+    // === НАСТРОЙКИ (те же, что в index.html) ===
+    const SUPABASE_URL = 'https://hqmrwwnimuyvsnxnimzg.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_PS7Z_S1FdxH3XYu5Z10tRA_IciS0eJ_';
+    // ===========================================
+
+    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const loggedOut = document.getElementById('logged-out');
+    const loggedIn = document.getElementById('logged-in');
+    const statusMsg = document.getElementById('status-msg');
+    let currentRating = 0;
+    let currentUser = null;
+
+    // --- Выбор звёзд ---
+    const starsPick = document.getElementById('stars-pick');
+    const stars = [...starsPick.querySelectorAll('span')];
+    function paintStars(n) { stars.forEach(s => s.classList.toggle('active', +s.dataset.v <= n)); }
+    stars.forEach(s => {
+        s.addEventListener('mouseenter', () => stars.forEach(x => x.classList.toggle('hover', +x.dataset.v <= +s.dataset.v)));
+        s.addEventListener('mouseleave', () => stars.forEach(x => x.classList.remove('hover')));
+        s.addEventListener('click', () => { currentRating = +s.dataset.v; paintStars(currentRating); });
+    });
+
+    // --- Вход ---
+    document.getElementById('login-btn').addEventListener('click', async () => {
+        await supabase.auth.signInWithOAuth({
+            provider: 'discord',
+            options: { redirectTo: window.location.origin + window.location.pathname }
+        });
+    });
+
+    // --- Выход ---
+    document.getElementById('logout-btn').addEventListener('click', async () => {
+        await supabase.auth.signOut();
+        showLoggedOut();
+    });
+
+    function showLoggedOut() {
+        loggedIn.classList.add('hidden');
+        loggedOut.classList.remove('hidden');
+        currentUser = null;
+    }
+
+    async function showLoggedIn(user) {
+        currentUser = user;
+        const meta = user.user_metadata || {};
+        const name = meta.full_name || meta.name || meta.user_name || 'Пользователь';
+        const avatar = meta.avatar_url || meta.picture || 'https://cdn.discordapp.com/embed/avatars/0.png';
+        document.getElementById('user-name').innerText = name;
+        document.getElementById('user-avatar').src = avatar;
+        loggedOut.classList.add('hidden');
+        loggedIn.classList.remove('hidden');
+
+        // Подтянуть существующий отзыв, если есть
+        const { data } = await supabase.from('reviews').select('*').eq('user_id', user.id).maybeSingle();
+        if (data) {
+            document.getElementById('existing-note').classList.remove('hidden');
+            document.getElementById('review-text').value = data.text;
+            currentRating = data.rating;
+            paintStars(currentRating);
+        }
+    }
+
+    // --- Отправка отзыва (один отзыв на пользователя, перезапись) ---
+    document.getElementById('submit-btn').addEventListener('click', async () => {
+        const text = document.getElementById('review-text').value.trim();
+        statusMsg.className = 'status-msg';
+        if (currentRating < 1) { statusMsg.classList.add('err'); statusMsg.innerText = 'Поставьте оценку.'; return; }
+        if (text.length < 3) { statusMsg.classList.add('err'); statusMsg.innerText = 'Напишите текст отзыва.'; return; }
+
+        const btn = document.getElementById('submit-btn');
+        btn.disabled = true; statusMsg.innerText = 'Отправка...';
+
+        const meta = currentUser.user_metadata || {};
+        const { error } = await supabase.from('reviews').upsert({
+            user_id: currentUser.id,
+            nickname: meta.full_name || meta.name || meta.user_name || 'Пользователь',
+            avatar: meta.avatar_url || meta.picture || null,
+            text,
+            rating: currentRating
+        }, { onConflict: 'user_id' });
+
+        btn.disabled = false;
+        if (error) {
+            statusMsg.classList.add('err'); statusMsg.innerText = 'Ошибка: ' + error.message;
+            console.error(error);
+        } else {
+            statusMsg.classList.add('ok'); statusMsg.innerText = 'Отзыв сохранён! Спасибо.';
+            document.getElementById('existing-note').classList.remove('hidden');
+        }
+    });
+
+    // --- Проверка сессии при загрузке (и после возврата с Discord) ---
+    supabase.auth.getSession().then(({ data: { session } }) => {
+        if (session && session.user) showLoggedIn(session.user);
+        else showLoggedOut();
+    });
+    supabase.auth.onAuthStateChange((_event, session) => {
+        if (session && session.user) showLoggedIn(session.user);
+    });
+</script>
+</body>
+</html>
